@@ -1,7 +1,18 @@
 package main
 
-import "fmt"
+import (
+	"github.com/gofiber/fiber/v2"
+	"github.com/ysnbyzli/go-redis-example/middlewares"
+	"github.com/ysnbyzli/go-redis-example/routes"
+)
 
 func main() {
-	fmt.Println("Hello, world!")
+	app := fiber.New()
+
+	middlewares.AppMiddlewares(app)
+
+	routes.TodoRoutes(app)
+
+	app.Listen(":3000")
+
 }
