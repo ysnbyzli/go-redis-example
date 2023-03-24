@@ -1,20 +1,21 @@
 package main
 
 import (
+	"log"
+
 	"github.com/gofiber/fiber/v2"
-	"github.com/ysnbyzli/go-redis-example/loaders"
+	"github.com/ysnbyzli/go-redis-example/configs"
 	"github.com/ysnbyzli/go-redis-example/middlewares"
-	"github.com/ysnbyzli/go-redis-example/routes"
 )
 
 func main() {
 	app := fiber.New()
 
+	if err := configs.LoadENV(); err != nil {
+		log.Fatalf("Error env: %s", err)
+	}
+
 	middlewares.AppMiddlewares(app)
-
-	loaders.RedisClient()
-
-	routes.TodoRoutes(app)
 
 	app.Listen(":3000")
 
