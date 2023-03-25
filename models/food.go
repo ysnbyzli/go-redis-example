@@ -17,6 +17,11 @@ type Basket struct {
 	Foods []BasketItem `json:"foods"`
 }
 
+type BasketDto struct {
+	Foods []BasketItem `json:"foods"`
+	Price float64      `json:"price"`
+}
+
 type BasketItem struct {
 	Id    uuid.UUID `json:"id"`
 	Name  string    `json:"name"`

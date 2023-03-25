@@ -1,0 +1,108 @@
+basePath: /
+definitions:
+  models.Basket:
+    properties:
+      foods:
+        items:
+          $ref: '#/definitions/models.BasketItem'
+        type: array
+    type: object
+  models.BasketDto:
+    properties:
+      foods:
+        items:
+          $ref: '#/definitions/models.BasketItem'
+        type: array
+      price:
+        type: number
+    type: object
+  models.BasketItem:
+    properties:
+      count:
+        type: integer
+      id:
+        type: string
+      name:
+        type: string
+      price:
+        type: number
+    type: object
+  models.Food:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      price:
+        type: number
+    type: object
+host: localhost:3000
+info:
+  contact:
+    email: fiber@swagger.io
+    name: API Support
+  description: Adding food to basket using go and redis
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Go & Redis Example API
+  version: "1.0"
+paths:
+  /baskets:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.BasketDto'
+      security:
+      - Bearer: []
+      summary: Get Basket
+      tags:
+      - Baskets
+    post:
+      parameters:
+      - description: save basket
+        in: body
+        name: values
+        required: true
+        schema:
+          $ref: '#/definitions/models.Basket'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Basket'
+            type: array
+      security:
+      - Bearer: []
+      summary: Save Basket
+      tags:
+      - Baskets
+  /foods:
+    get:
+      description: Returns the list of foods
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Food'
+            type: array
+      security:
+      - Bearer: []
+      summary: Get Foods
+      tags:
+      - Foods
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"

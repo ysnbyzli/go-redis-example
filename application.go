@@ -9,8 +9,22 @@ import (
 	"github.com/ysnbyzli/go-redis-example/configs"
 	"github.com/ysnbyzli/go-redis-example/middlewares"
 	"github.com/ysnbyzli/go-redis-example/routes"
+
+	_ "github.com/ysnbyzli/go-redis-example/swagger"
 )
 
+// @title Go & Redis Example API
+// @version 1.0
+// @description Adding food to basket using go and redis
+// @termsOfService http://swagger.io/terms/
+// @contact.name API Support
+// @contact.email fiber@swagger.io
+// @license.name Apache 2.0
+// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+// @host localhost:3000
+// @BasePath /
+// @securityDefinitions.basic BasicAuth
+// @name Authorization
 func main() {
 	app := fiber.New(fiber.Config{
 		JSONEncoder: json.Marshal,
@@ -31,6 +45,7 @@ func main() {
 
 	routes.FoodRoutes(app)
 	routes.BasketRoutes(app, redis)
+	routes.SwaggerRoutes(app)
 
 	app.Listen(":3000")
 
