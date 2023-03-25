@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  api:
+    build: .
+    environment:
+      RedisAddr: redis:6379
+      GO_ENV: production
+    depends_on:
+      - redis 
+
+  redis:
+    image: redis:latest

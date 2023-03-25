@@ -3,6 +3,7 @@ package cache
 import (
 	"context"
 	"fmt"
+	"os"
 	"time"
 
 	"github.com/redis/go-redis/v9"
@@ -14,7 +15,7 @@ type RedisRepository struct {
 
 func RedisClient() (*RedisRepository, error) {
 	rdb := redis.NewClient(&redis.Options{
-		Addr: "localhost:6379",
+		Addr: os.Getenv("RedisAddr"),
 	})
 
 	ping := rdb.Ping(context.Background())
